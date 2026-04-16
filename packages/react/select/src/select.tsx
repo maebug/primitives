@@ -630,7 +630,8 @@ const SelectContentImpl = React.forwardRef<SelectContentImplElement, SelectConte
             event.preventDefault();
           } else {
             // otherwise, if the event was outside the content, close.
-            if (!content.contains(event.target as HTMLElement)) {
+            // Use composedPath so this works across shadow DOM boundaries.
+            if (!event.composedPath().includes(content)) {
               onOpenChange(false);
             }
           }
